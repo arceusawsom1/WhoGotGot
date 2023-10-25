@@ -1,9 +1,9 @@
 FROM eclipse-temurin
 WORKDIR /app
  
-COPY .mvn/ .mvn
+#COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-RUN dos2unix mvnw
+RUN apk add --no-cache maven
 RUN ./mvnw dependency:go-offline
  
 COPY src ./src
