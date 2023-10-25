@@ -1,5 +1,10 @@
-FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
-COPY target/*.jar app.jar
+FROM eclipse-temurin
+WORKDIR /app
+ 
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:go-offline
+ 
+COPY src ./src
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app.jar"]
+CMD ["./mvnw", "spring-boot:run"]
